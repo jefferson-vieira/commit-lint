@@ -2,6 +2,30 @@
   "name": "commit-lint",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:new": "CI=true yarn test --bail --findRelatedTests",
+    "lint:js": "eslint --ext .js,.jsx src",
+    "lint:css": "stylelint 'src/**/*.css'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "yarn lint:js"
+    ],
+    "*.{css,scss}": [
+      "yarn lint:css"
+    ],
+    "*": [
+      "yarn test:new"
+    ]
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -10,14 +34,11 @@
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+  "devDependencies": {
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.7",
+    "stylelint": "^13.0.0",
+    "stylelint-config-standard": "^19.0.0"
   },
   "browserslist": {
     "production": [
